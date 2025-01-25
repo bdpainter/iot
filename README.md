@@ -1,2 +1,2 @@
 # iot
-IOT projects: software, hardware, 3d printer &amp; CNC files
+IOT projects: software, hardware, 3d printer and CNC files
