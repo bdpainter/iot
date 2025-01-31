@@ -1,22 +1,24 @@
 from machine import Pin
-from time import sleep
+from shadow.candle_shadow import CandleShadow
 
 led = Pin(32, Pin.OUT)
 led.value(True)
 
 
+shadows = [
+    CandleShadow("0")
+]
 
-# TESTING: Subscribe to MQTT topic, use it to turn on and off LED
-LED_TOPIC = b"/test/hub/command/led"
-def set_led_state(topic, msg):
-    if msg.decode() == "1":
-        led.value(1)
-    else:
-        led.value(0)
+# TESTING: Subscribe to MQTT topic, use it to turn on and off candle
+HUB_TOPIC = b"hub/shadow/#"
     
-mqttc.set_callback(set_led_state)
-mqttc.subscribe(LED_TOPIC)
+def handle_mqtt(topic, message):
+    print(topic)
+    print(message)
     
+mqttc.set_callback(handle_mqtt)
+mqttc.subscribe(HUB_TOPIC)
+
+
 while True:
     mqttc.check_msg()
-    sleep(0.5)
